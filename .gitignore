@@ -1,5 +1,5 @@
 
 *.pyc
-mysql.info.py
+mysql_info.py
 .DS_Store
 __pycache__/
