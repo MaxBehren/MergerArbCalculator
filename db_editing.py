@@ -13,14 +13,14 @@ def add_deal():
 	while not tar_in:
 		target = raw_input("Enter the target ticker: ")
 		if not target.isalpha():
-			print "Please enter only letters"
+			print "Please enter only letters."
 		else:
 			tshare = Share(target)
 			if tshare.get_price():
 				tar_in = True
 				target = target.upper()
 			else:
-				print "Please enter a valid ticker symbol"
+				print "Please enter a valid ticker symbol."
 
 
 	pub_in = False
@@ -34,7 +34,7 @@ def add_deal():
 			pub = 0
 			pub_in = True
 		else:
-			print "Please answer with 'Y' or 'N'"
+			print "Please answer with 'Y' or 'N'."
 
 	ac_in = False
 	while not ac_in:
@@ -48,7 +48,7 @@ def add_deal():
 					ac_in = True
 					acquirer = acquirer.upper()
 				else:
-					print "Please enter a valid ticker symbol"
+					print "Please enter a valid ticker symbol."
 		else:
 			acquirer = raw_input("Enter the acquirer name: ")
 			if acquirer:
@@ -71,9 +71,9 @@ def add_deal():
 					consid = 3
 					valconsid = True
 				else:
-					print "Please enter 1, 2, or 3"
+					print "Please enter 1, 2, or 3."
 			except ValueError:
-				print "Please enter 1, 2, or 3"
+				print "Please enter 1, 2, or 3."
 	cash = 0
 	if consid == 1 or consid == 3:
 		cash_in = False
@@ -81,10 +81,10 @@ def add_deal():
 			cash = raw_input ("Please enter the cash consideration: $")
 			try:
 				cash = "{:.2f}".format(float(cash))
-				print "Cash is: $" + cash
+				print "Cash is: $" + cash + "."
 				cash_in = True
 			except ValueError:
-				print "Please enter a valid dollar amount"
+				print "Please enter a valid dollar amount."
 	stock = 0
 	if consid == 2 or consid == 3:
 		stock_in = False
@@ -92,10 +92,10 @@ def add_deal():
 			stock = raw_input ("Please enter the stock consideration (up to 4 decimals): ")
 			try:
 				stock = "{:.4f}".format(float(stock))
-				print "Stock is: " + stock
+				print "Stock is: " + stock + "."
 				stock_in = True
 			except ValueError:
-				print "Please enter a valid stock amount"
+				print "Please enter a valid stock amount."
 
 	# print "Target:\t" + target
 	# print "Acquirer:\t" + acquirer
@@ -112,7 +112,7 @@ def add_deal():
 	cur = db.cursor()
 	cur.execute(query)
 	db.commit()
-	print target.upper() + " deal entered\n"
+	print target.upper() + " deal entered.\n"
 
 
 def delete_deal():

@@ -18,7 +18,6 @@ def main():
 
 		returnall = "select * from universe ORDER BY target;"
 		db = MySQLdb.connect(mysql_info.login["host"],mysql_info.login["user"],mysql_info.login["password"],mysql_info.login["db"])
-		#db = MySQLdb.connect("localhost","root","","mergerarb" )
 		cur = db.cursor()
 		rows = cur.execute(returnall)
 		universe = cur.fetchall()
@@ -61,13 +60,6 @@ def main():
 	outro()
 
 
-	# target = raw_input("Enter the target ticker: ")
-	# acquirer = raw_input("Enter the acquirer ticker: ")
-	# tshare = Share(target)
-	# ashare = Share(acquirer)
-	# print tshare.get_name() + " last trade: " + tshare.get_price()
-	# print ashare.get_name() + " last trade: " + ashare.get_price()
-
 def intro():
 	print "\nWelcome to MergerAarb Calculator written by Max Behren\n"
 
@@ -77,8 +69,35 @@ def outro():
 def deal_info(deal):
 	print "DISPLAY DEAL INFO FOR: " + deal[0]
 
+	consid = 0
+	if deal[3] == '1':
+		consid = deal[4]
+		print deal[0] + " is being acquired by " + deal[1] + " for $" + str(consid) + " per share."
+	else:
+		ashare = Share(deal[1])
+		acprice = float(ashare.get_price())
+		stocknum = float(deal[5])
+		stockval = acprice * stocknum
+		acprice = "{:.2f}".format(float(acprice))
+		if deal[3] == '2':
+			consid = "{:.2f}".format(float(stockval))
+			print deal[0] + " is being acquired by " + deal[1] + " for $" + str(consid) + " per share (" + \
+				str(stocknum) + " of " + deal[1] + " at $" + str(acprice) + ")."
+		elif deal[3] == '3':
+			cash = float(deal[4])
+			consid = cash + stockval
+			cash = "{:.2f}".format(float(cash))
+			consid = "{:.2f}".format(float(consid))
+			print deal[0] + " is being acquired by " + deal[1] + " for $" + str(consid) + " per share ($" + \
+				cash + " and " + str(stocknum) + " of " + deal[1] + " at $" + str(acprice) + ")."
+		else:
+			print "ERROR!"
 
-	#FIXME: implement
+	tshare = Share(deal[0])
+	tprice = float(tshare.get_price())
+	spread = float(consid) - tprice
+	spreadpercent = "{:.2f}".format(float(spread / tprice))
+	print deal[0] + " last traded at $" + str(tprice) + " with a spread of $" + str(spread) + " (" + spreadpercent + "%).\n"
 
 
 if __name__ == '__main__':
