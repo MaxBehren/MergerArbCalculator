@@ -61,10 +61,12 @@ def main():
 
 
 def intro():
-	print "\nWelcome to MergerAarb Calculator written by Max Behren\n"
+	print "\nWelcome to MergerAarb Calculator written by Max Behren."
+	print "This program was created using python and SQL and allows the user to view and modify a database of " +\
+		"merger deals and view live info on the deals.\n"
 
 def outro():
-	print "Thank you for running MergerArb Calculator\n"
+	print "Thank you for running MergerArb Calculator.\n"
 
 def deal_info(deal):
 	print "DISPLAY DEAL INFO FOR: " + deal[0]
@@ -82,14 +84,14 @@ def deal_info(deal):
 		if deal[3] == '2':
 			consid = "{:.2f}".format(float(stockval))
 			print deal[0] + " is being acquired by " + deal[1] + " for $" + str(consid) + " per share (" + \
-				str(stocknum) + " of " + deal[1] + " at $" + str(acprice) + ")."
+				str(stocknum) + " shares of " + deal[1] + " at $" + str(acprice) + ")."
 		elif deal[3] == '3':
 			cash = float(deal[4])
 			consid = cash + stockval
 			cash = "{:.2f}".format(float(cash))
 			consid = "{:.2f}".format(float(consid))
-			print deal[0] + " is being acquired by " + deal[1] + " for $" + str(consid) + " per share ($" + \
-				cash + " and " + str(stocknum) + " of " + deal[1] + " at $" + str(acprice) + ")."
+			print deal[0] + " is being acquired by " + deal[1] + " for a consideration of $" + str(consid) + " per share ($" + \
+				cash + " and " + str(stocknum) + " shares of " + deal[1] + " at $" + str(acprice) + ")."
 		else:
 			print "ERROR!"
 

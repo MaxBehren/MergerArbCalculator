@@ -123,14 +123,28 @@ def delete_deal():
 		if input == "back":
 			return
 		else:
-			query = "DELETE from universe where Target = \"" + input + "\";"
+			target = input.upper()
+			query = "DELETE from universe where Target = \"" + target + "\";"
 			db = MySQLdb.connect(mysql_info.login["host"],mysql_info.login["user"],mysql_info.login["password"],mysql_info.login["db"])
 			cur = db.cursor()
-			sucess = cur.execute(query)
-			if sucess > 0:
-				print input.upper() + " deal sucessfully deleted from universe.\n"
-				db.commit()
-				remain = False
+			search = "Select * from universe where target = \"" + target + "\";"
+			intable = cur.execute(search)
+			if intable > 0:
+				#confirm
+				confirm_in = False
+				while not confirm_in:
+					confirm = raw_input("Are you sure you want to delete the " + target + " deal? (Y\N)\n")
+					if confirm.lower() == 'y': 
+						cur.execute(query)
+						print input.upper() + " deal sucessfully deleted from universe.\n"
+						db.commit()
+						confirm_in = True
+						remain = False
+					elif confirm.lower() == 'n':
+						remain = False
+						confirm_in = True
+					else:
+						print "Please Enter 'Y' or 'N'"
 			else:
 				print "Please enter a valid input."
 
