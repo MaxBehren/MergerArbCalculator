@@ -61,9 +61,9 @@ def main():
 
 
 def intro():
-	print "\nWelcome to MergerAarb Calculator written by Max Behren."
-	print "This program was created using python and SQL and allows the user to view and modify a database of " +\
-		"merger deals and view live info on the deals.\n"
+	print "\nWelcome to MergerArb Calculator written by Max Behren."
+	print "This program was created using python and SQL. It allows the user to view and modify a database of " +\
+		"M&A transactions and monitor live deal spreads.\n"
 
 def outro():
 	print "Thank you for running MergerArb Calculator.\n"
@@ -84,22 +84,23 @@ def deal_info(deal):
 		if deal[3] == '2':
 			consid = "{:.2f}".format(float(stockval))
 			print deal[0] + " is being acquired by " + deal[1] + " for $" + str(consid) + " per share (" + \
-				str(stocknum) + " shares of " + deal[1] + " at $" + str(acprice) + ")."
+				str(stocknum) + " shares of " + deal[1] + ", currently trading at $" + str(acprice) + ")."
 		elif deal[3] == '3':
 			cash = float(deal[4])
 			consid = cash + stockval
 			cash = "{:.2f}".format(float(cash))
 			consid = "{:.2f}".format(float(consid))
 			print deal[0] + " is being acquired by " + deal[1] + " for a consideration of $" + str(consid) + " per share ($" + \
-				cash + " and " + str(stocknum) + " shares of " + deal[1] + " at $" + str(acprice) + ")."
+				cash + " plus " + str(stocknum) + " shares of " + deal[1] + ", trading at $" + str(acprice) + ")."
 		else:
 			print "ERROR!"
 
 	tshare = Share(deal[0])
 	tprice = float(tshare.get_price())
 	spread = float(consid) - tprice
-	spreadpercent = "{:.2f}".format(float(spread / tprice))
-	print deal[0] + " last traded at $" + str(tprice) + " with a spread of $" + str(spread) + " (" + spreadpercent + "%).\n"
+	spreadpercent = "{:.2f}".format(float(spread / tprice)*100)
+	spread = "{:.2f}".format(spread)
+	print deal[0] + " last traded at $" + str(tprice) + ", a spread of $" + str(spread) + " to the deal consideration (" + spreadpercent + "%).\n"
 
 
 if __name__ == '__main__':
